@@ -1,0 +1,35 @@
+// Utility
+@import "Styles/utility";
+
+h1, h2, h3, h4, h5 {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+    font-size: 50px;
+    margin-bottom: 30px;
+
+}
+
+h2 {
+    font-size: calc(1rem + 0.6vw);
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: calc(1rem + 0.3vw);
+    margin-bottom: 15px;
+}
+
+h4 {
+    font-size: calc(0.8rem + 0.3vw);
+    margin-bottom: 10px;
+}
+
+h5 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    font-weight: 500;
+    line-height: 1.5;
+}
