@@ -1,24 +1,21 @@
 import React from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
-// *** Components ***
-import Navbar from 'Modules/Navbar/Navbar';
+// *** Layouts ***
+import BasicLayout from 'Layouts/BasicLayout/BasicLayout';
 
 // *** Pages ***
 import Home from 'Pages/Home/Home';
 
 const AppRouter = () => {
     return (
-        <>
-            <Router>
-                <Route component={Navbar} />
-                <main>
-                    <Switch>
-                        <Route component={Home} path='/' exact/>
-                    </Switch>
-                </main>
-            </Router>
-        </>
+        <BrowserRouter>
+            <Routes>
+                <Route path='/' element={<BasicLayout />}>
+                    <Route path='/' element={<Home />} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
     );
 };
 
