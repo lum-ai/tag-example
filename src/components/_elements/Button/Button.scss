@@ -1,0 +1,56 @@
+// Utility
+@import "Styles/utility";
+
+.btn {
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    cursor: pointer;
+    user-select: none;
+
+    &:focus {
+        outline: 0;
+    }
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+.btn-primary {
+    background: $primaryColor;
+    color: #ffffff;
+
+    &:not([disabled]) {
+        &:hover, &:focus {
+            background: darken($blue, 5%);
+        }
+
+        &:active {
+            background: darken($blue, 5%);
+        }
+    }
+
+    &[disabled] {
+        opacity: 0.6;
+    }
+}
+
+.btn-default {
+    background: $secondaryColor;
+    color: #ffffff;
+
+    &:not([disabled]) {
+        &:hover, &:focus {
+            background: darken($secondaryColor, 5%);
+        }
+
+        &:active {
+            background: darken($secondaryColor, 5%);
+        }
+
+        &[disabled] {
+            opacity: 0.6;
+        }
+    }
+}
