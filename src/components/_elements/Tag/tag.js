@@ -18,8 +18,16 @@ class Tag extends Component {
 
     redraw() {
         if (this.instance) {
-            this.instance.resize();
-            this.instance.redraw();
+            this.instance.clear();
+            this.instance.init();
+            this.instance.draw();
+        }
+    }
+
+    reload() {
+        if (this.instance) {
+            // this.instance.resize();
+            this.redraw();
         }
     }
 

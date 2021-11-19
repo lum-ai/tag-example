@@ -19,7 +19,7 @@ module.exports = async () => {
             "!src/**/*.d.ts"
         ],
         setupFiles: [
-            "<rootDir>/setupTests.js",
+            "<rootDir>/setup.tests.js",
             "react-app-polyfill/jsdom",
         ],
         setupFilesAfterEnv: [],
