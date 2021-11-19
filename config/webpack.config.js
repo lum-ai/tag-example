@@ -423,6 +423,7 @@ module.exports = function (webpackEnv) {
                       runtime: hasJsxRuntime ? 'automatic' : 'classic',
                     },
                   ],
+                  
                 ],
                 
                 plugins: [
