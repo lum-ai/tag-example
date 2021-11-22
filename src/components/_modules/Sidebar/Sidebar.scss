@@ -1,0 +1,32 @@
+// Utility
+@import "Styles/utility";
+
+.sidebar {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: $sidebarWidth;
+    background: $lightBlue;
+    box-shadow: 3px 0 12px -7px rgba(0,0,0,0.05);
+    z-index: 900;
+    overflow: auto;
+    @include transition(transform 0.4s ease-out);
+    @include transform(translate(0,0));
+
+    & ~ main {
+        margin-right: $sidebarWidth;
+        @include transition(margin-right 0.4s ease-out);
+    }
+
+    &.sidebar-hidden {
+        @include transform(translate($sidebarWidth,0));
+        & ~ main {
+            margin-right: 0;
+        }
+    }
+
+    .sidebar-container {
+        padding: 40px;
+    }
+}
