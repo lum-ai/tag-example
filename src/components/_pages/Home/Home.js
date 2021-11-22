@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Tag from 'Components/_elements/Tag/Tag';
 import Sidebar from 'Components/_modules/Sidebar/Sidebar';
 import { Button } from 'Elements/Button/Button';
@@ -38,10 +38,16 @@ const Home = () => {
         tagDefaultColours: ["#ff3366"]
     });
 
+    const tagRef = useRef();
+
     // Toggle Options (filters) from Sidebar
     const toggleOptions = () => {
         setShowOptions(!showOptions);
         // todo: redraw svg on toggle
+    }
+
+    const tagRedraw = () => {
+        tagRef.current.redraw();
     }
 
     return (
@@ -54,8 +60,16 @@ const Home = () => {
                         <Button onClick={ toggleOptions } buttonStyle="btn-default" buttonSize="btn-small">
                             { showOptions ? 'Hide' : 'Show' } Options <i className="fas fa-bars"/>
                         </Button>
+
+                        <Button onClick={tagRedraw} buttonStyle="btn-default" buttonSize="btn-small">
+                            Redraw <i className="fas fa-reload" />
+                        </Button>
                     </Heading>
-                    <Tag data={ tagData } options={ tagOptions }/>
+                    <Tag 
+                        ref={tagRef}
+                        data={ tagData } 
+                        options={ tagOptions }
+                    />
                 </div>
             </main>
         </>

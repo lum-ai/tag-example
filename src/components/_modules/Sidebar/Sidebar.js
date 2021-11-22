@@ -5,7 +5,6 @@ import { Heading } from 'Elements/Heading/Heading';
 import { Button } from 'Elements/Button/Button';
 
 const Sidebar = (props) => {
-
     const [tagOptions, setTagOptions] = useState(props.options)
 
     const categoryOptions = {
@@ -28,13 +27,14 @@ const Sidebar = (props) => {
     }
 
     const handleSubmit = event => {
-        // const formData = new FormData(event.target);
+        const formData = new FormData(event.target);
         event.preventDefault();
 
         // todo: form handling
-        // for (let [key, value] of formData.entries()) {
-        //     setTagOptions({...tagOptions, [key]: value});
-        // }
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+            setTagOptions({...tagOptions, [key]: value});
+        }
 
         console.log(tagOptions);
     }
