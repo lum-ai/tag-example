@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import TAG from "text-annotation-graphs";
+import {default as TagLibrary} from "text-annotation-graphs";
 
 import "text-annotation-graphs/dist/tag/css/tag.min.css"
-import "./tag.sass"
+import "./Tag.scss"
 
 class Tag extends Component {
     constructor(props) {
@@ -47,7 +47,7 @@ class Tag extends Component {
 
     componentDidMount() {
         setTimeout(() => {
-            const tagEl = TAG.tag({
+            const tagEl = TagLibrary.tag({
                 container: this.ref.current,
                 data: this.props.data,
                 format: "odin",
@@ -61,7 +61,7 @@ class Tag extends Component {
     render() {
         return (
             <div className="tag">
-                <div className="tag-svg" ref={this.ref} style={{ width: "100%" }}></div>
+                <div className="tag-svg" ref={this.ref}/>
             </div>
         );
     }

@@ -1,49 +1,66 @@
-import React, { Component } from 'react';
-import Tag from 'Components/_elements/Tag/tag';
+import React, { useState } from 'react';
+import Tag from 'Components/_elements/Tag/Tag';
+import Sidebar from 'Components/_modules/Sidebar/Sidebar';
+import { Button } from 'Elements/Button/Button';
+import { Heading } from 'Elements/Heading/Heading';
 
 import './Home.scss';
 
 import tagData from "Components/_data/test-odin.json"
 
-class Home extends Component {
-    state = {
-        tagOptions: {
-            topLinkCategory: "default",
-            bottomLinkCategory: "none",
-            topTagCategory: "default",
-            bottomTagCategory: "POS",
-            compactRows: false,
-            showTopLinksOnMove: false,
-            showBottomLinksOnMove: false,
-            showTopMainLabel: true,
-            showTopArgLabels: false,
-            showBottomMainLabel: true,
-            showBottomArgLabels: false,
-            rowEdgePadding: 10,
-            rowVerticalPadding: 20,
-            rowExtraTopPadding: 10,
-            wordPadding: 10,
-            wordPunctPadding: 2,
-            wordTopTagPadding: 10,
-            wordBottomTagPadding: 0,
-            wordTagLineLength: 9,
-            wordBraceThreshold: 100,
-            linkSlotInterval: 40,
-            linkHandlePadding: 2,
-            linkCurveWidth: 5,
-            linkArrowWidth: 5,
-            tagDefaultColours: ["#ff3366"]
-        },
+const Home = () => {
+    const [showOptions, setShowOptions] = useState(true);
+    const [tagOptions, setTagOptions] = useState({
+        topLinkCategory: "default",
+        bottomLinkCategory: "none",
+        topTagCategory: "default",
+        bottomTagCategory: "POS",
+        compactRows: false,
+        showTopLinksOnMove: false,
+        showBottomLinksOnMove: false,
+        showTopMainLabel: true,
+        showTopArgLabels: false,
+        showBottomMainLabel: true,
+        showBottomArgLabels: false,
+        rowEdgePadding: 10,
+        rowVerticalPadding: 20,
+        rowExtraTopPadding: 10,
+        wordPadding: 10,
+        wordPunctPadding: 2,
+        wordTopTagPadding: 10,
+        wordBottomTagPadding: 0,
+        wordTagLineLength: 9,
+        wordBraceThreshold: 100,
+        linkSlotInterval: 40,
+        linkHandlePadding: 2,
+        linkCurveWidth: 5,
+        linkArrowWidth: 5,
+        tagDefaultColours: ["#ff3366"]
+    });
+
+    // Toggle Options (filters) from Sidebar
+    const toggleOptions = () => {
+        setShowOptions(!showOptions);
+        // todo: redraw svg on toggle
     }
 
-    render() {
-        return (
-            <div>
-                <h1>TAG Example</h1>
-                <Tag data={tagData} options={this.state.tagOptions}/>
-            </div>
-        )
-    };
+    return (
+        <>
+            <Sidebar options={ tagOptions } showOptions={ showOptions }/>
+            <main>
+                <div className="container">
+                    <Heading type="h2" className="heading-button">
+                        TAG Example
+                        <Button onClick={ toggleOptions } buttonStyle="btn-default" buttonSize="btn-small">
+                            { showOptions ? 'Hide' : 'Show' } Options <i className="fas fa-bars"/>
+                        </Button>
+                    </Heading>
+                    <Tag data={ tagData } options={ tagOptions }/>
+                </div>
+            </main>
+        </>
+    )
+
 };
 
 export default Home;
