@@ -26,9 +26,12 @@ const Tag = forwardRef((props, tagRef) => {
     }));
 
     const initialize = () => {
+        // make sure the div is clean
         while (ref.current.firstChild) {
             ref.current.removeChild(ref.current.firstChild);
         }
+
+        // initialize the tag instance
         instance = TagLibrary.tag({
             container: ref.current,
             data: props.data,
@@ -41,7 +44,6 @@ const Tag = forwardRef((props, tagRef) => {
     const update = () => {
         if (instance) {
             for (let option in props.options) {
-                console.log(option, props.options[option])
                 instance.setOption(option, props.options[option]);
             }
 
