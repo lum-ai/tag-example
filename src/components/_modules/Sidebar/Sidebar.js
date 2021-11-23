@@ -5,8 +5,7 @@ import { Heading } from 'Elements/Heading/Heading';
 import { Button } from 'Elements/Button/Button';
 
 const Sidebar = (props) => {
-
-    const [tagOptions, setTagOptions] = useState(props.options)
+    let options = { ...props.options };
 
     const categoryOptions = {
         topLinkCategory: {
@@ -43,15 +42,8 @@ const Sidebar = (props) => {
                 itemValue = event.target.value;
                 break;
         }
-        setTagOptions({...tagOptions, [itemName]:itemValue})
-    }
-
-    const handleSubmit = event => {
-        event.preventDefault();
-
-        // todo: form handling
-
-        console.log(tagOptions);
+        options = ({ ...options, [itemName]:itemValue});
+        props.updateOptions(options);
     }
 
     return (
@@ -62,7 +54,7 @@ const Sidebar = (props) => {
 
                     {/* todo: for a better usability, a form field component (_element) should be created */}
 
-                    <form onSubmit={ handleSubmit } action="">
+                    <form action="">
                         {/*  Category Options */}
                         <div className="input-field">
                             <label htmlFor="topLinkCategory">Top Link Category</label>
@@ -186,13 +178,13 @@ const Sidebar = (props) => {
                             <label htmlFor="linkArrowWidth">Link Arrow Width</label>
                             <input type="number" name="linkArrowWidth" id="linkArrowWidth" defaultValue={props.options.linkArrowWidth} placeholder="0" onChange={handleChange}/>
                         </div>
-                        <div className="input-field input-field-inline">
+                        {/* <div className="input-field input-field-inline">
                             <label htmlFor="tagDefaultColours">Tag Default Colours</label>
-                            <input type="color" name="tagDefaultColours" id="tagDefaultColours" defaultValue={props.options.tagDefaultColours} onChange={handleChange}/>
-                        </div>
-                        <div className="text-right">
+                            <input type="color" name="tagDefaultColours" id="tagDefaultColours" defaultValue={props.options.tagDefaultColours}/>
+                        </div> */}
+                        {/* <div className="text-right">
                             <Button type="submit" buttonSize="btn-full">Submit</Button>
-                        </div>
+                        </div> */}
                     </form>
                 </div>
             </div>

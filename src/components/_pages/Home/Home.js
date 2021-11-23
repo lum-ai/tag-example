@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Tag from 'Components/_elements/Tag/Tag';
 import Sidebar from 'Components/_modules/Sidebar/Sidebar';
 import { Button } from 'Elements/Button/Button';
@@ -38,15 +38,29 @@ const Home = () => {
         tagDefaultColours: ["#ff3366"]
     });
 
+    const tagRef = useRef();
+
     // Toggle Options (filters) from Sidebar
     const toggleOptions = () => {
         setShowOptions(!showOptions);
-        // todo: redraw svg on toggle
+        tagRedraw();
+    }
+
+    const tagRedraw = () => {
+        tagRef.current.redraw();
+    }
+
+    const updateOptions = options => {
+        setTagOptions({...tagOptions, ...options});
     }
 
     return (
         <>
-            <Sidebar options={ tagOptions } showOptions={ showOptions }/>
+            <Sidebar 
+                options={ tagOptions } 
+                showOptions={ showOptions }
+                updateOptions={updateOptions.bind(this)}
+            />
             <main>
                 <div className="header">
                     <div className="container">
@@ -55,11 +69,19 @@ const Home = () => {
                             <Button onClick={ toggleOptions } buttonStyle="btn-default" buttonSize="btn-small">
                                 { showOptions ? 'Hide' : 'Show' } Options <i className="fas fa-bars"/>
                             </Button>
+
+                            <Button onClick={tagRedraw} buttonStyle="btn-default" buttonSize="btn-small">
+                                Redraw <i className="fas fa-redo" />
+                            </Button>
                         </Heading>
                     </div>
                 </div>
                 <div className="container">
-                    <Tag data={ tagData } options={ tagOptions }/>
+                    <Tag 
+                        ref={tagRef}
+                        data={ tagData } 
+                        options={ tagOptions }
+                    />
                 </div>
             </main>
         </>

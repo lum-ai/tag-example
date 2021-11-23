@@ -1,70 +1,59 @@
-import React, { Component } from "react";
+import React, { useEffect, useRef, forwardRef, useImperativeHandle } from "react";
 import {default as TagLibrary} from "text-annotation-graphs";
 
 import "text-annotation-graphs/dist/tag/css/tag.min.css"
 import "./Tag.scss"
 
-class Tag extends Component {
-    constructor(props) {
-        super(props);
-
-        this.ref = React.createRef();
-        this.instance = null;
-    }
-
-    state = {
-
-    }
-
-    redraw() {
-        if (this.instance) {
-            this.instance.clear();
-            this.instance.init();
-            this.instance.draw();
+let instance = null;
+const Tag = forwardRef((props, tagRef) => {
+    const ref = useRef();
+    
+    useImperativeHandle(tagRef, () => ({
+        redraw() {
+            if (instance) {
+                instance.clear();
+                instance.init();
+                instance.draw();
+            }
+        },
+        reload() {
+            if (instance) {
+                // TODO: reload tag
+                tagRef.current.redraw();
+            }
         }
-    }
+    }));
 
-    reload() {
-        if (this.instance) {
-            // this.instance.resize();
-            this.redraw();
-        }
-    }
-
-    update() {
-        if (this.instance) {
-            for (let option in this.props.options) {
-                this.instance.setOption(option, this.props.options[option]);
+    const update = () => {
+        if (instance) {
+            for (let option in props.options) {
+                console.log(option, props.options[option])
+                instance.setOption(option, props.options[option]);
             }
 
-            this.redraw();
+            tagRef.current.redraw();
         }
     }
 
-    componentDidUpdate() {
-        this.update();
-    }
-
-    componentDidMount() {
-        setTimeout(() => {
-            const tagEl = TagLibrary.tag({
-                container: this.ref.current,
-                data: this.props.data,
+    useEffect(() => {
+        if (!instance) {
+            instance = TagLibrary.tag({
+                container: ref.current,
+                data: props.data,
                 format: "odin",
 
-                options: {...this.props.options}
+                options: { ...props.options }
             });
-            this.instance = tagEl;
-        });
-    }
+        } else {
+            update();
+        }
+    }, [props.options]);
 
-    render() {
-        return (
-            <div className="tag">
-                <div className="tag-svg" ref={this.ref}/>
-            </div>
-        );
-    }
-}
+    return (
+        <div className="tag">
+            <div className="tag-svg" ref={ref}/>
+        </div>
+    );
+});
 
 export default Tag;
