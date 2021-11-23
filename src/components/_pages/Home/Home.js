@@ -48,13 +48,17 @@ const Home = () => {
         <>
             <Sidebar options={ tagOptions } showOptions={ showOptions }/>
             <main>
+                <div className="header">
+                    <div className="container">
+                        <Heading type="h2" className="heading-button">
+                            TAG Example
+                            <Button onClick={ toggleOptions } buttonStyle="btn-default" buttonSize="btn-small">
+                                { showOptions ? 'Hide' : 'Show' } Options <i className="fas fa-bars"/>
+                            </Button>
+                        </Heading>
+                    </div>
+                </div>
                 <div className="container">
-                    <Heading type="h2" className="heading-button">
-                        TAG Example
-                        <Button onClick={ toggleOptions } buttonStyle="btn-default" buttonSize="btn-small">
-                            { showOptions ? 'Hide' : 'Show' } Options <i className="fas fa-bars"/>
-                        </Button>
-                    </Heading>
                     <Tag data={ tagData } options={ tagOptions }/>
                 </div>
             </main>

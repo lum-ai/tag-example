@@ -3,7 +3,18 @@ body {
 }
 
 main {
-    padding: 40px;
+    padding: 40px 0;
+}
+
+.header {
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid $lightGrey;
+}
+
+.container {
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .text-left {
