@@ -62,17 +62,21 @@ const Home = () => {
                 updateOptions={updateOptions.bind(this)}
             />
             <main>
-                <div className="container">
-                    <Heading type="h2" className="heading-button">
-                        TAG Example
-                        <Button onClick={ toggleOptions } buttonStyle="btn-default" buttonSize="btn-small">
-                            { showOptions ? 'Hide' : 'Show' } Options <i className="fas fa-bars"/>
-                        </Button>
+                <div className="header">
+                    <div className="container">
+                        <Heading type="h2" className="heading-button">
+                            TAG Example
+                            <Button onClick={ toggleOptions } buttonStyle="btn-default" buttonSize="btn-small">
+                                { showOptions ? 'Hide' : 'Show' } Options <i className="fas fa-bars"/>
+                            </Button>
 
-                        <Button onClick={tagRedraw} buttonStyle="btn-default" buttonSize="btn-small">
-                            Redraw <i className="fas fa-redo" />
-                        </Button>
-                    </Heading>
+                            <Button onClick={tagRedraw} buttonStyle="btn-default" buttonSize="btn-small">
+                                Redraw <i className="fas fa-redo" />
+                            </Button>
+                        </Heading>
+                    </div>
+                </div>
+                <div className="container">
                     <Tag 
                         ref={tagRef}
                         data={ tagData } 
