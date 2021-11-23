@@ -9,6 +9,7 @@ import './Home.scss';
 import tagData from "Components/_data/test-odin.json"
 
 const Home = () => {
+    const sidebarAnimationDuration = 400;
     const [showOptions, setShowOptions] = useState(true);
     const [tagOptions, setTagOptions] = useState({
         topLinkCategory: "default",
@@ -43,7 +44,11 @@ const Home = () => {
     // Toggle Options (filters) from Sidebar
     const toggleOptions = () => {
         setShowOptions(!showOptions);
-        tagRedraw();
+
+        // trigger redraw after the sidebar animation is done
+        setTimeout(() => {
+            tagRedraw();
+        }, sidebarAnimationDuration);
     }
 
     const tagRedraw = () => {
