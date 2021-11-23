@@ -7,9 +7,10 @@ import "./Tag.scss"
 let instance = null;
 const Tag = forwardRef((props, tagRef) => {
     const ref = useRef();
-    
+
     useImperativeHandle(tagRef, () => ({
         redraw() {
+            initialize();
             if (instance) {
                 instance.clear();
                 instance.init();
@@ -24,6 +25,19 @@ const Tag = forwardRef((props, tagRef) => {
         }
     }));
 
+    const initialize = () => {
+        while (ref.current.firstChild) {
+            ref.current.removeChild(ref.current.firstChild);
+        }
+        instance = TagLibrary.tag({
+            container: ref.current,
+            data: props.data,
+            format: "odin",
+
+            options: { ...props.options }
+        });
+    }
+
     const update = () => {
         if (instance) {
             for (let option in props.options) {
@@ -37,13 +51,7 @@ const Tag = forwardRef((props, tagRef) => {
 
     useEffect(() => {
         if (!instance) {
-            instance = TagLibrary.tag({
-                container: ref.current,
-                data: props.data,
-                format: "odin",
-
-                options: { ...props.options }
-            });
+            initialize();
         } else {
             update();
         }
