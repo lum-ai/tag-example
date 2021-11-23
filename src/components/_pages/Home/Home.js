@@ -43,16 +43,24 @@ const Home = () => {
     // Toggle Options (filters) from Sidebar
     const toggleOptions = () => {
         setShowOptions(!showOptions);
-        // todo: redraw svg on toggle
+        tagRedraw();
     }
 
     const tagRedraw = () => {
         tagRef.current.redraw();
     }
 
+    const updateOptions = options => {
+        setTagOptions({...tagOptions, ...options});
+    }
+
     return (
         <>
-            <Sidebar options={ tagOptions } showOptions={ showOptions }/>
+            <Sidebar 
+                options={ tagOptions } 
+                showOptions={ showOptions }
+                updateOptions={updateOptions.bind(this)}
+            />
             <main>
                 <div className="container">
                     <Heading type="h2" className="heading-button">
@@ -62,7 +70,7 @@ const Home = () => {
                         </Button>
 
                         <Button onClick={tagRedraw} buttonStyle="btn-default" buttonSize="btn-small">
-                            Redraw <i className="fas fa-reload" />
+                            Redraw <i className="fas fa-redo" />
                         </Button>
                     </Heading>
                     <Tag 

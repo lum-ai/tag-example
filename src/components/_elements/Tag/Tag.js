@@ -4,10 +4,10 @@ import {default as TagLibrary} from "text-annotation-graphs";
 import "text-annotation-graphs/dist/tag/css/tag.min.css"
 import "./Tag.scss"
 
+let instance = null;
 const Tag = forwardRef((props, tagRef) => {
     const ref = useRef();
-    let instance = null;
-
+    
     useImperativeHandle(tagRef, () => ({
         redraw() {
             if (instance) {
@@ -18,23 +18,17 @@ const Tag = forwardRef((props, tagRef) => {
         },
         reload() {
             if (instance) {
-                // this.instance.resize();
+                // TODO: reload tag
                 tagRef.current.redraw();
             }
         }
     }));
 
-    // const reload = () => {
-    //     if (instance) {
-    //         // this.instance.resize();
-    //         tagRef.current.redraw();
-    //     }
-    // }
-
     const update = () => {
-        if (this.instance) {
-            for (let option in this.props.options) {
-                this.instance.setOption(option, this.props.options[option]);
+        if (instance) {
+            for (let option in props.options) {
+                console.log(option, props.options[option])
+                instance.setOption(option, props.options[option]);
             }
 
             tagRef.current.redraw();
@@ -50,8 +44,10 @@ const Tag = forwardRef((props, tagRef) => {
 
                 options: { ...props.options }
             });
+        } else {
+            update();
         }
-    });
+    }, [props.options]);
 
     return (
         <div className="tag">

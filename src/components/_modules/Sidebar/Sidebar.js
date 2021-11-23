@@ -5,7 +5,7 @@ import { Heading } from 'Elements/Heading/Heading';
 import { Button } from 'Elements/Button/Button';
 
 const Sidebar = (props) => {
-    const [tagOptions, setTagOptions] = useState(props.options)
+    let options = { ...props.options };
 
     const categoryOptions = {
         topLinkCategory: {
@@ -30,13 +30,13 @@ const Sidebar = (props) => {
         const formData = new FormData(event.target);
         event.preventDefault();
 
-        // todo: form handling
         for (let [key, value] of formData.entries()) {
-            console.log(key, value);
-            setTagOptions({...tagOptions, [key]: value});
+            // make sure the number values are parsed as numbers
+            value = !isNaN(value) ? parseInt(value) : value;
+            options = {...options, [key]: value};
         }
 
-        console.log(tagOptions);
+        props.updateOptions(options);
     }
 
     return (
@@ -169,10 +169,10 @@ const Sidebar = (props) => {
                             <label htmlFor="linkArrowWidth">Link Arrow Width</label>
                             <input type="number" name="linkArrowWidth" id="linkArrowWidth" defaultValue={props.options.linkArrowWidth} placeholder="0"/>
                         </div>
-                        <div className="input-field input-field-inline">
+                        {/* <div className="input-field input-field-inline">
                             <label htmlFor="tagDefaultColours">Tag Default Colours</label>
                             <input type="color" name="tagDefaultColours" id="tagDefaultColours" defaultValue={props.options.tagDefaultColours}/>
-                        </div>
+                        </div> */}
                         <div className="text-right">
                             <Button type="submit" buttonSize="btn-full">Submit</Button>
                         </div>
