@@ -46,6 +46,7 @@ module.exports = async () => {
             "^Modules(.*)$": "<rootDir>/src/components/_modules/$1",
             "^Pages(.*)$": "<rootDir>/src/components/_pages/$1",
             "^Elements(.*)$": "<rootDir>/src/components/_elements/$1",
+            "^Components(.*)$": "<rootDir>/src/components/$1",
         },
         moduleFileExtensions: [
             "web.js",
