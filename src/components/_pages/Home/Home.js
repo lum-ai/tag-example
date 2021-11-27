@@ -1,16 +1,16 @@
 import React, { useState, useRef } from 'react';
 import Tag from 'Components/_elements/Tag/Tag';
 import Sidebar from 'Components/_modules/Sidebar/Sidebar';
+import Editbar from 'Components/_modules/Editbar/Editbar';
 import { Button } from 'Elements/Button/Button';
 import { Heading } from 'Elements/Heading/Heading';
 
 import './Home.scss';
 
-import tagData from "Components/_data/test-odin.json"
-
 const Home = () => {
     const sidebarAnimationDuration = 400;
     const [showOptions, setShowOptions] = useState(true);
+    const [showEditbar, setShowEditbar] = useState(true);
     const [tagOptions, setTagOptions] = useState({
         topLinkCategory: "default",
         bottomLinkCategory: "none",
@@ -38,12 +38,23 @@ const Home = () => {
         linkArrowWidth: 5,
         tagDefaultColours: ["#ff3366"]
     });
+    const [activeParser, setActiveParser] = useState();
 
     const tagRef = useRef();
 
     // Toggle Options (filters) from Sidebar
     const toggleOptions = () => {
         setShowOptions(!showOptions);
+
+        // trigger redraw after the sidebar animation is done
+        setTimeout(() => {
+            tagRedraw();
+        }, sidebarAnimationDuration);
+    }
+
+    // Toggle Editbar
+    const toggleEditbar = () => {
+        setShowEditbar(!showEditbar);
 
         // trigger redraw after the sidebar animation is done
         setTimeout(() => {
@@ -59,32 +70,41 @@ const Home = () => {
         setTagOptions({...tagOptions, ...options});
     }
 
+    const updateParser = options => {
+        setActiveParser(options);
+    }
+
     return (
         <>
-            <Sidebar 
+            <Sidebar
                 options={ tagOptions } 
                 showOptions={ showOptions }
                 updateOptions={updateOptions.bind(this)}
+            />
+            <Editbar
+                showEditbar={ showEditbar }
+                updateParser={updateParser.bind(this)}
             />
             <main>
                 <div className="header">
                     <div className="container">
                         <Heading type="h2" className="heading-button">
                             TAG Example
-                            <Button onClick={ toggleOptions } buttonStyle="btn-default" buttonSize="btn-small">
-                                { showOptions ? 'Hide' : 'Show' } Options <i className="fas fa-bars"/>
-                            </Button>
-
-                            <Button onClick={tagRedraw} buttonStyle="btn-default" buttonSize="btn-small">
-                                Redraw <i className="fas fa-redo" />
-                            </Button>
+                            <div>
+                                <Button onClick={ toggleOptions } buttonStyle="btn-default" buttonSize="btn-small">
+                                    { showOptions ? 'Hide' : 'Show' } Options <i className="fas fa-bars"/>
+                                </Button>
+                                <Button onClick={ toggleEditbar } buttonStyle="btn-default" buttonSize="btn-small">
+                                    { showEditbar ? 'Hide' : 'Show' } Editbar <i className="fas fa-bars"/>
+                                </Button>
+                            </div>
                         </Heading>
                     </div>
                 </div>
                 <div className="container">
                     <Tag 
-                        ref={tagRef}
-                        data={ tagData } 
+                        ref={ tagRef }
+                        data={ activeParser }
                         options={ tagOptions }
                     />
                 </div>

@@ -11,17 +11,20 @@
     box-shadow: 3px 0 12px -7px rgba(0,0,0,0.05);
     z-index: 900;
     overflow: auto;
+    border-left: 2px solid #eee;
     @include transition(transform 0.4s ease-out);
     @include transform(translate(0,0));
 
-    & ~ main {
+    & ~ main,
+    & ~ .editbar {
         margin-right: $sidebarWidth;
-        @include transition(margin-right 0.4s ease-out);
     }
 
     &.sidebar-hidden {
         @include transform(translate($sidebarWidth,0));
-        & ~ main {
+
+        & ~ main,
+        & ~ .editbar {
             margin-right: 0;
         }
     }

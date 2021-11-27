@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Sidebar.scss';
 
 import { Heading } from 'Elements/Heading/Heading';
-import { Button } from 'Elements/Button/Button';
 
 const Sidebar = (props) => {
     let options = { ...props.options };
