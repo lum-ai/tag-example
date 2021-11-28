@@ -57,7 +57,7 @@ const Tag = forwardRef((props, tagRef) => {
         } else {
             update();
         }
-    }, [props.options]);
+    }, [initialize, update]);
 
     return (
         <div className="tag">
