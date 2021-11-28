@@ -1,3 +1,4 @@
+[![Project CI](https://github.com/lum-ai/tag-example/actions/workflows/node.yml/badge.svg)](https://github.com/lum-ai/tag-example/actions/workflows/node.yml)
 # tag-example
 An example of the Text Annotation Graphs system in action.
 
