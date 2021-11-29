@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, forwardRef, useImperativeHandle } from "react";
+import React, { useEffect, useRef, forwardRef, useImperativeHandle, useCallback } from "react";
 import {default as TagLibrary} from "text-annotation-graphs";
 
 import "text-annotation-graphs/dist/tag/css/tag.min.css"
@@ -12,9 +12,7 @@ const Tag = forwardRef((props, tagRef) => {
         redraw() {
             initialize();
             if (instance) {
-                instance.clear();
-                instance.init();
-                instance.draw();
+                instance.redraw();
             }
         },
         reload() {
@@ -25,23 +23,28 @@ const Tag = forwardRef((props, tagRef) => {
         }
     }));
 
-    const initialize = () => {
+    const initialize = useCallback(() => {
         // make sure the div is clean
         while (ref.current.firstChild) {
             ref.current.removeChild(ref.current.firstChild);
         }
 
         // initialize the tag instance
-        instance = TagLibrary.tag({
-            container: ref.current,
-            data: props.data,
-            format: "odin",
+        try {
+            instance = TagLibrary.tag({
+                container: ref.current,
+                data: props.data,
+                format: "odin",
 
-            options: { ...props.options }
-        });
-    }
+                options: { ...props.options }
+            });
+        } catch(err) {
+            // TODO: treat error here
+        }
 
-    const update = () => {
+    }, [props])
+
+    const update = useCallback(() => {
         if (instance) {
             for (let option in props.options) {
                 instance.setOption(option, props.options[option]);
@@ -49,7 +52,7 @@ const Tag = forwardRef((props, tagRef) => {
 
             tagRef.current.redraw();
         }
-    }
+    }, [props, tagRef])
 
     useEffect(() => {
         if (!instance) {
