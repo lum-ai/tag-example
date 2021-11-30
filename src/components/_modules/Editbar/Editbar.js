@@ -15,6 +15,7 @@ import SentenceOdin3 from "Components/_data/sentence-3-odin.json";
 import SentenceOdinson1 from "Components/_data/sentence-odinson-1.json";
 import SentenceOdinson2 from "Components/_data/sentence-odinson-2.json";
 
+let init = false;
 const Editbar = (props) => {
     const initialParser = ['Odin', Odin];
     const [activeParser, setActiveParser] = useState(initialParser[0]);
@@ -22,7 +23,10 @@ const Editbar = (props) => {
 
 
     useEffect(() => {
-        props.updateParser(JSON.parse(activeDataParser));
+        if (!init) {
+            props.updateParser(JSON.parse(activeDataParser));
+            init = true;
+        }
     }, [activeDataParser]);
 
     const tagParsers = {
@@ -40,6 +44,7 @@ const Editbar = (props) => {
     }
 
     const changeParser = (e) => {
+        init = false;
         setActiveParser(e.target.value);
         // eslint-disable-next-line default-case
         switch(e.target.value) {
