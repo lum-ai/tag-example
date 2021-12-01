@@ -9,7 +9,7 @@ import Home from 'Pages/Home/Home';
 
 const AppRouter = () => {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/tag-example">
             <Routes>
                 <Route path='/' element={<BasicLayout />}>
                     <Route path='/' element={<Home />} />
