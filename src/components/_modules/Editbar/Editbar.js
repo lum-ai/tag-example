@@ -22,7 +22,7 @@ const Editbar = (props) => {
     const [activeDataParser, setActiveDataParser] = useState(JSON.stringify(initialParser[1], undefined, 4));
 
 
-    useEffect(() => {
+    useEffect((props) => {
         if (!init) {
             props.updateParser(JSON.parse(activeDataParser));
             init = true;
