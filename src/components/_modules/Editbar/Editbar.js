@@ -21,8 +21,8 @@ const Editbar = (props) => {
     const [activeParser, setActiveParser] = useState(initialParser[0]);
     const [activeDataParser, setActiveDataParser] = useState(JSON.stringify(initialParser[1], undefined, 4));
 
-
-    useEffect((props) => {
+    // FIXME: useCallback for updateParser
+    useEffect(() => {
         if (!init) {
             props.updateParser(JSON.parse(activeDataParser));
             init = true;
