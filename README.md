@@ -4,61 +4,61 @@ An example of the Text Annotation Graphs system in action in a reactjs app.
 
 ## Installation
 ### Using package.json file
-    ```JavaScript
-        "dependencies": {
-            "text-annotation-graphs": "git://github.com/lum-ai/TAG.git#development"
-        }
-    ```
+```JavaScript
+    "dependencies": {
+        "text-annotation-graphs": "git://github.com/lum-ai/TAG.git#development"
+    }
+```
     
 ### Using npm
-    ```Javascript
-        npm i --save git://github.com/lum-ai/TAG.git#development 
-    ```
+```Javascript
+    npm i --save git://github.com/lum-ai/TAG.git#development 
+```
 
 ## Using TAG inside a react application
 ### Import TAG library
-    ```Javascript
-        import {default as TagLibrary} from "text-annotation-graphs";
-        import "text-annotation-graphs/dist/tag/css/tag.min.css"
-    ```
+```Javascript
+    import {default as TagLibrary} from "text-annotation-graphs";
+    import "text-annotation-graphs/dist/tag/css/tag.min.css"
+```
 
 ### Import useRef
-    ```Javascript
-        import {useRef} from "react";
-        ...
-        const ref = useRef();
-    ```
+```Javascript
+    import {useRef} from "react";
+    ...
+    const ref = useRef();
+```
 
 ### Initialize TAG
-    ```Javascript
-        while (ref.current.firstChild) {
-            ref.current.removeChild(ref.current.firstChild);
-        }
+```Javascript
+    while (ref.current.firstChild) {
+        ref.current.removeChild(ref.current.firstChild);
+    }
 
-        instance = TagLibrary.tag({
-            container: ref.current,
-            data: props.data,
-            format: "odin",
+    instance = TagLibrary.tag({
+        container: ref.current,
+        data: props.data,
+        format: "odin",
 
-            options: { ...props.options }
-        });
-    ```
+        options: { ...props.options }
+    });
+```
 
 ### Add markup
-    ```Javascript
-        return (
-            <div className="tag">
-                <div className="tag-svg" ref={ref}/>
-            </div>
-        );
-    ```
+```Javascript
+    return (
+        <div className="tag">
+            <div className="tag-svg" ref={ref}/>
+        </div>
+    );
+```
 
 ## Use the tag component 
-    ```Javascript
-        <Tag 
-            data={ json data string }
-            options={ TAG options json }
-    ```
+```Javascript
+    <Tag 
+        data={ json data string }
+        options={ TAG options json }
+```
 
 # Running the demo
 ## Available Scripts
